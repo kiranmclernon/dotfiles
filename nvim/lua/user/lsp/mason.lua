@@ -1,9 +1,9 @@
 
 local servers = {
     "sumneko_lua",
-    "pyright",
     "clangd",
     "rust_analyzer",
+    "jedi_language_server"
 }
 
 local settings = {
@@ -41,6 +41,7 @@ for _, server in pairs(servers) do
     server = vim.split(server, "@")[1]
 
     if server == "rust_analyzer" then
+        local rt = require("rust-tools")
         require("rust-tools").setup {
         tools = {
         on_initialized = function()
@@ -48,21 +49,27 @@ for _, server in pairs(servers) do
                 autocmd BufEnter,CursorHold,InsertLeave,BufWritePost *.rs silent! lua vim.lsp.codelens.refresh()
             ]]
         end,
-      },
-      server = {
-        on_attach = require("user.lsp.handlers").on_attach,
-        capabilities = require("user.lsp.handlers").capabilities,
-        settings = {
-          ["rust-analyzer"] = {
-            lens = {
-              enable = true,
-            },
-            checkOnSave = {
-              command = "clippy",
-            },
-          },
         },
-      },
+        server = {
+            on_attach = function(client, bufnr)
+                require("user.lsp.handlers").on_attach(client, bufnr)
+                vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+                -- Code action groups
+                vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+
+            end,
+            capabilities = require("user.lsp.handlers").capabilities,
+            settings = {
+                ["rust-analyzer"] = {
+                    lens = {
+                        enable = true,
+                    },
+                    checkOnSave = {
+                        command = "clippy",
+                    },
+                },
+            },
+        },
     }
 
     goto continue
@@ -73,7 +80,6 @@ for _, server in pairs(servers) do
     if require_ok then
         opts = vim.tbl_deep_extend("force", conf_opts, opts)
     end
-    
     lspconfig[server].setup(opts)
     ::continue::
 end
