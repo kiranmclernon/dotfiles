@@ -1,5 +1,4 @@
 require "user/options"
-require "user/keymaps"
 require "user/plugins"
 require "user/colorscheme"
 require "user/cmp"
@@ -10,3 +9,7 @@ require "user.autopairs"
 require "user.comment"
 require "user.gitsigns"
 require "user.toggleterm"
+require "user.cmake"
+require "user.leap"
+require "user/keymaps"
+

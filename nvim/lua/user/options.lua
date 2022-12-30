@@ -9,6 +9,7 @@ local options = {
     signcolumn = "yes:2", -- the debug column is there and its 2 wide
     cursorline = true, -- the cursor line is highlighted
     cindent = true, -- use cstyle indenting
+    autoindent = true,
     wrap = true, -- wrap
     linebreak = true, -- make wrapping nicer
     expandtab = true, -- expand tabs

@@ -1,9 +1,9 @@
 
 local servers = {
     "sumneko_lua",
-    "clangd",
     "rust_analyzer",
-    "jedi_language_server"
+    "jedi_language_server",
+    "cmake",
 }
 
 local settings = {
@@ -83,3 +83,11 @@ for _, server in pairs(servers) do
     lspconfig[server].setup(opts)
     ::continue::
 end
+
+lspconfig.ccls.setup{
+    on_attach = require("user.lsp.handlers").on_attach,
+    capabilities = require("user.lsp.handlers").capabilities,
+    init_options = {
+        compilationDatabaseDirectory = "build";
+    }
+}

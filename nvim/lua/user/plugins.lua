@@ -39,8 +39,10 @@ return packer.startup({
             requires = { 'kyazdani42/nvim-web-devicons', opt = true }
         }
         use "windwp/nvim-autopairs"
+        use "https://gitlab.com/yorickpeterse/nvim-window"
         -- Colorscheme
-        use{"gruvbox-community/gruvbox"}
+        use 'sam4llis/nvim-tundra'
+        use "ggandor/leap.nvim"
         use "lewis6991/impatient.nvim"
         use "nvim-tree/nvim-web-devicons"
         use {
@@ -50,6 +52,7 @@ return packer.startup({
                 require'alpha'.setup(require'alpha.themes.startify'.config)
             end
         }
+        use 'Civitasv/cmake-tools.nvim'
         use "numToStr/Comment.nvim"
         use "lewis6991/gitsigns.nvim"
         use "nvim-tree/nvim-tree.lua"
