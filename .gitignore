@@ -1,0 +1,4 @@
+nvim/plugin
+**/.DS_Store
+nvim/lazy-lock.json
+shell_gpt
