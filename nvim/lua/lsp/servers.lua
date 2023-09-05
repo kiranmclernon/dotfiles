@@ -12,15 +12,16 @@ M.servers = {
 }
 
 local exclude = {
-    "jdtls"
+    ["jdtls"] = true
 }
 
 M.setup = {}
 
 for _, server in ipairs(M.servers) do
-    if exclude[server] then
+    if not exclude[server] then
         table.insert(M.setup, server)
     end
 end
+
 
 return M

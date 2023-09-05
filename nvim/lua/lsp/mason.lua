@@ -1,3 +1,15 @@
+local servers = {
+    "lua_ls",
+    "rust_analyzer",
+    "jedi_language_server",
+    "cmake",
+    "texlab",
+    "jdtls",
+    "clangd",
+    "ltex",
+    "bashls"
+}
+
 local mason_settings = {
     ui = {
     border = "none",
@@ -25,7 +37,8 @@ return {
     config = function()
         require("mason").setup(mason_settings)
         require("mason-lspconfig").setup({
-            ensure_installed = require("lsp.servers").servers,
+            ensure_installed = servers,
+            automatic_installation = true,
         })
     require("lsp.setup").setup()
     local lsp_config = require "lspconfig"
@@ -39,15 +52,10 @@ return {
             lsp_config.lua_ls.setup(get_server_settings("lua_ls"))
         end,
         ["jdtls"] = function()
-            lsp_config.jdtls.setup(get_server_settings("jdtls"))
+                get_server_settings("nvim-jdtls")()
         end
     }
-    for _, server in ipairs(require("lsp.servers").setup) do
-        if(handlers[server]) then
-            handlers[server]()
-        else
-            handlers[0](server)
-        end
-    end
+
+    require('mason-lspconfig').setup_handlers(handlers)
     end
 }

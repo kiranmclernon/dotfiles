@@ -3,5 +3,5 @@ local vimtex = require "lsp.vimtex"
 
 return {
     mason,
-    vimtex
+    vimtex,
 }
