@@ -104,5 +104,6 @@ return {
             },
             ghost_text = true,
         })
+
     end
 }

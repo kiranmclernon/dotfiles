@@ -3,7 +3,7 @@ return {
     config = function()
         local configs = require("nvim-treesitter.configs")
         configs.setup {
-          ensure_installed = {"rust", "lua", "c", "cpp", "cmake", "vim", "java"},
+          ensure_installed = {"rust", "lua", "c", "cpp", "cmake", "vim", "java", "python", "bash"},
           sync_install = false, 
           ignore_install = { "" }, -- List of parsers to ignore installing
           highlight = {

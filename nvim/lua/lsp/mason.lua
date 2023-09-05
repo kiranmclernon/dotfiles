@@ -1,19 +1,10 @@
-local servers = {
-    "lua_ls",
-    "rust_analyzer",
-    "jedi_language_server",
-    "cmake",
-    "texlab",
-    "jdtls"
-}
-
 local mason_settings = {
     ui = {
     border = "none",
         icons = {
-            package_installed = "◍",
-            package_pending = "◍",
-            package_uninstalled = "◍",
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
         },
     },
     log_level = vim.log.levels.INFO,
@@ -34,8 +25,7 @@ return {
     config = function()
         require("mason").setup(mason_settings)
         require("mason-lspconfig").setup({
-            ensure_installed = servers,
-            automatic_installation = true,
+            ensure_installed = require("lsp.servers").servers,
         })
     require("lsp.setup").setup()
     local lsp_config = require "lspconfig"
@@ -52,7 +42,12 @@ return {
             lsp_config.jdtls.setup(get_server_settings("jdtls"))
         end
     }
-
-    require('mason-lspconfig').setup_handlers(handlers)
+    for _, server in ipairs(require("lsp.servers").setup) do
+        if(handlers[server]) then
+            handlers[server]()
+        else
+            handlers[0](server)
+        end
+    end
     end
 }
