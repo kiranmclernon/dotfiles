@@ -7,7 +7,8 @@ local servers = {
     "jdtls",
     "clangd",
     "ltex",
-    "bashls"
+    "bashls",
+    "pylsp"
 }
 
 local mason_settings = {
@@ -51,8 +52,13 @@ return {
         ["lua_ls"] = function()
             lsp_config.lua_ls.setup(get_server_settings("lua_ls"))
         end,
+        ["pylsp"] = function()
+                lsp_config.pylsp.setup(get_server_settings("pylsp"))
+        end,
         ["jdtls"] = function()
                 get_server_settings("nvim-jdtls")()
+        end,
+        ["jedi_language_server"] = function()
         end
     }
 

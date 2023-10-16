@@ -9,6 +9,7 @@ local telescope = require "ui.telescope"
 local devicons = require "ui.devicons"
 local toggleterm = require "ui.toggleterm"
 local alpha = require "ui.alpha"
+local aerial = require "ui.aerial"
 return {
     devicons,
     colorscheme,
@@ -20,5 +21,6 @@ return {
     lualine,
     telescope,
     toggleterm,
-    alpha
+    alpha,
+    aerial
 }
