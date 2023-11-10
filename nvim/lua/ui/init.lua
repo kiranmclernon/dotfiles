@@ -10,6 +10,7 @@ local devicons = require "ui.devicons"
 local toggleterm = require "ui.toggleterm"
 local alpha = require "ui.alpha"
 local aerial = require "ui.aerial"
+local zen = require "ui.zen"
 return {
     devicons,
     colorscheme,
@@ -22,5 +23,6 @@ return {
     telescope,
     toggleterm,
     alpha,
-    aerial
+    aerial,
+    zen
 }

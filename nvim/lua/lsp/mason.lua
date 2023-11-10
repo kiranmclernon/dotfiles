@@ -8,7 +8,7 @@ local servers = {
     "clangd",
     "ltex",
     "bashls",
-    "pylsp"
+    "arduino_language_server"
 }
 
 local mason_settings = {
@@ -33,6 +33,7 @@ return {
     dependencies = {
         "neovim/nvim-lspconfig",
         "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
         require("lsp.lang_plugs")
     },
     config = function()
@@ -40,6 +41,14 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = servers,
             automatic_installation = true,
+        })
+        require("mason-tool-installer").setup({
+            ensure_installed = {
+                "pylint",
+                "mypy",
+                "google-java-format",
+                "stylua"
+            }
         })
     require("lsp.setup").setup()
     local lsp_config = require "lspconfig"
@@ -52,13 +61,8 @@ return {
         ["lua_ls"] = function()
             lsp_config.lua_ls.setup(get_server_settings("lua_ls"))
         end,
-        ["pylsp"] = function()
-                lsp_config.pylsp.setup(get_server_settings("pylsp"))
-        end,
         ["jdtls"] = function()
                 get_server_settings("nvim-jdtls")()
-        end,
-        ["jedi_language_server"] = function()
         end
     }
 

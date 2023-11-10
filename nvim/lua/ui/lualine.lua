@@ -33,16 +33,15 @@ return {
             }
           },
           sections = {
-            -- lualine_a = {'mode'},
-            -- lualine_b = {'branch', 'diff', 'diagnostics', 'filename'},
-            -- lualine_c = {'filename'},
-            -- lualine_d = {navic.get_location, navic.is_available},
-            -- lualine_x = {'encoding', 'fileformat', 'filetype'},
-            -- lualine_y = {'progress'},
-            -- lualine_z = {'location'}
-                lualine_c = {
-                    "filename", {  navic.get_location, cond = navic.is_available },
-                }
+            lualine_a = {'mode'},
+            lualine_b = {'branch', 'diff', 'diagnostics', 'filename'},
+            lualine_c = {
+                "filename", {  navic.get_location, cond = navic.is_available },
+            },
+            lualine_d = {navic.get_location, navic.is_available},
+            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_y = {'progress'},
+            lualine_z = {'location'}
           },
 
           tabline = {},

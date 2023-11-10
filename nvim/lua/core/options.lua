@@ -27,6 +27,7 @@ local options = {
     splitright = true, -- forcing proper splits
     splitbelow = true, -- forcing propersplits
     scrolloff = 8, -- minimum number of lines to keep above and below the cursor
+    encoding = 'utf-8',
 }
 for k, v in pairs(options) do
     vim.opt[k] = v

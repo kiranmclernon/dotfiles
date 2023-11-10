@@ -16,9 +16,11 @@ local editing = require "editing"
 local ui = require "ui"
 local utils = require "utils"
 local lsp = require "lsp"
+local neorg = require "core.neorg"
 require("lazy").setup {
     utils,
     editing,
     ui,
-    lsp
+    lsp,
+    neorg
 }
