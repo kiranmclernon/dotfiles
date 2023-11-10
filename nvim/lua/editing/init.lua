@@ -4,11 +4,13 @@ local comment = require "editing.comment"
 local indentline = require "editing.indentline"
 local cmp = require "editing.cmp"
 local pencil = require "editing.pencil"
+local vimtex = require "editing.vimtex"
 return {
     leap,
     autopairs,
     comment,
     indentline,
     cmp,
-    pencil
+    pencil,
+    vimtex
 }

@@ -1,13 +1,13 @@
 local setup = function ()
-    vim.cmd("call pencil#init()")
+    vim.cmd("call pencil#init({'wrap': 'hard'})")
 end
 
 return{
     "preservim/vim-pencil",
     config = function ()
-        local penciL_cmds = vim.api.nvim_create_augroup("penciL_cmds", {clear = true})
+        local pencil_cmds = vim.api.nvim_create_augroup("penciL_cmds", {clear = true})
         vim.api.nvim_create_autocmd("FileType", {
-            group = penciL_cmds,
+            group = pencil_cmds,
             pattern = {'tex'},
             desc = 'setup vim-pencil',
             callback = setup
