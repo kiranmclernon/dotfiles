@@ -1,5 +1,5 @@
 local setup = function ()
-    vim.cmd("call pencil#init({'wrap': 'hard'})")
+    vim.cmd("call pencil#init({'wrap': 'soft'})")
 end
 
 return{

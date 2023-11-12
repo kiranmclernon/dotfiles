@@ -7,8 +7,7 @@ return {
         "saadparwaiz1/cmp_luasnip", -- snippet completions
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-nvim-lsp",
-        "L3MON4D3/LuaSnip", --snippet engine
-        "rafamadriz/friendly-snippets", -- a bunch of snippets to use
+        require('editing.luasnip')
     },
     config = function()
         local cmp_status_ok, cmp = pcall(require, "cmp")
@@ -24,6 +23,7 @@ return {
         end
 
         require("luasnip/loaders/from_vscode").lazy_load() -- I have no clue what this is
+        -- require("luasnip/loaders/from_snipmate").lazy_load() -- I have no clue what this is
 
         local kind_icons = {
           Text = "",
