@@ -2,6 +2,7 @@ local ls = require("luasnip")
 local  s= ls.snippet
 local  f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
+local t = ls.text_node
 local i = ls.insert_node
 local extras = require("luasnip.extras")
 local fmta = require("luasnip.extras.fmt").fmta
@@ -9,13 +10,13 @@ local rep = extras.rep
 
 local function math()
     return vim.api.nvim_eval('vimtex#syntax#in_mathzone()') == 1
-end 
+end
 
 
 ls.add_snippets(nil, {
     all = {
         s(
-            "beg", 
+            "beg",
             fmt(
                 [[
                 \begin{<>}
@@ -68,8 +69,27 @@ ls.add_snippets(nil, {
         s(
             { trig='se', name='iset', dscr='dscr'},
             fmt([[\{ <> \}]],
-            { i(0)},
+            { i(1)},
             { delimiters='<>' }),
+            { condition = math }
+        ),
+        s(
+            { trig='ceil', name='ceiling', dscr='dscr'},
+            fmt([[\lceil <> \rceil]],
+            { i(1)},
+            { delimiters='<>' }),
+            { condition = math }
+        ),
+        s(
+            { trig='floor', name='floor', dscr='dscr'},
+            fmt([[\lfloor <> \rfloor]],
+            { i(1)},
+            { delimiters='<>' }),
+            { condition = math }
+        ),
+        s(
+            { trig='dot', name='cdot', dscr='dscr'},
+            {t([[\cdot]])},
             { condition = math }
         ),
         s(
