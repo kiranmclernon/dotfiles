@@ -2,7 +2,7 @@ local M = {}
 M.servers = {
     "lua_ls",
     "rust_analyzer",
-    "jedi_language_server",
+    "basedpyright",
     "cmake",
     "texlab",
     "jdtls",

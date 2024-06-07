@@ -1,14 +1,15 @@
 local servers = {
     "lua_ls",
     "rust_analyzer",
-    "jedi_language_server",
+    "basedpyright",
     "cmake",
     "texlab",
     "jdtls",
     "clangd",
     "ltex",
     "bashls",
-    "arduino_language_server"
+    "arduino_language_server",
+    "tsserver"
 }
 
 local mason_settings = {
@@ -45,7 +46,6 @@ return {
         require("mason-tool-installer").setup({
             ensure_installed = {
                 "pylint",
-                "mypy",
                 "google-java-format",
                 "stylua"
             }
@@ -63,7 +63,7 @@ return {
         end,
         ["jdtls"] = function()
                 get_server_settings("nvim-jdtls")()
-        end
+        end,
     }
 
     require('mason-lspconfig').setup_handlers(handlers)

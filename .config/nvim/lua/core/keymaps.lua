@@ -47,6 +47,7 @@ keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", opts)
 keymap("n", "<leader>a", "<cmd>AerialToggle!<CR>", opts)
 
 keymap("n", "<leader>m", ":ToggleTerm<CR>", opts)
+keymap("n", "r", ":redo<CR>", opts)
 if vim.fn.executable "lazygit" == 1 then
 keymap("n", "<leader>g", 
     function()

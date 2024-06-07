@@ -1,6 +1,6 @@
 local ls = require("luasnip")
-local  s= ls.snippet
-local  f = ls.function_node
+local s = ls.snippet
+local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
 local t = ls.text_node
 local i = ls.insert_node
@@ -22,20 +22,19 @@ ls.add_snippets(nil, {
                 \begin{<>}
                 <>
                 \end{<>}]],
-                {i(1), i(0), rep(1)}, -- repeat node 1
+                {i(1), i(2), rep(1)}, -- repeat node 1
                 {delimiters='<>'}
             )
         ),
 
         s(
-            "para",
+            "pa",
             fmt(
-                [[\paragraph{<>}]],
+                [[ \paragraph{<>} ]],
                 {i(1)},
                 {delimiters='<>'}
             )
         ),
-
         s(
             "mi",
             fmt(
@@ -49,6 +48,47 @@ ls.add_snippets(nil, {
             "md",
             fmt(
                 [[ \[ <> \] ]],
+                {i(1)},
+                {delimiters='<>'}
+            )
+        ),
+        s(
+            "dy",
+            fmt(
+                [[ \frac{dy}{dx} <> ]],
+                {i(1)},
+                {delimiters='<>'}
+            )
+        ),
+        s(
+            "2dy",
+            fmt(
+                [[ \frac{d^2y}{dx^2} <> ]],
+                {i(1)},
+                {delimiters='<>'}
+            )
+        ),
+        s(
+            "dx",
+            fmt(
+                [[ \frac{dx}{dt} <> ]],
+                {i(1)},
+                {delimiters='<>'}
+            )
+        ),
+        s(
+            "int",
+            fmt(
+                [[ \int_{<>}^{<>} ]],
+                {i(1), i(2)},
+                {delimiters='<>'}
+            )
+        ),
+
+        s(
+            "intd",
+            fmt(
+                [[ \int <>]],
                 {i(1)},
                 {delimiters='<>'}
             )
@@ -67,7 +107,7 @@ ls.add_snippets(nil, {
             )
         ),
         s(
-            { trig='se', name='iset', dscr='dscr'},
+            { trig='set', name='iset', dscr='dscr'},
             fmt([[\{ <> \}]],
             { i(1)},
             { delimiters='<>' }),
@@ -80,6 +120,7 @@ ls.add_snippets(nil, {
             { delimiters='<>' }),
             { condition = math }
         ),
+
         s(
             { trig='floor', name='floor', dscr='dscr'},
             fmt([[\lfloor <> \rfloor]],
@@ -90,6 +131,35 @@ ls.add_snippets(nil, {
         s(
             { trig='dot', name='cdot', dscr='dscr'},
             {t([[\cdot]])},
+            { condition = math }
+        ),
+
+        s(
+            { trig='times', name='times', dscr='dscr'},
+            {t([[\times]])},
+            { condition = math }
+        ),
+
+        s(
+            { trig='in', name='in', dscr='dscr'},
+            {t([[\in]])},
+            { condition = math }
+        ),
+
+        s(
+            { trig='bs', name='bs', dscr='dscr'},
+            {t([[\textbackslash]])},
+            { condition = math }
+        ),
+
+        s(
+            { trig='->', name='arrow', dscr='dscr'},
+            {t([[\rightarrow]])},
+            { condition = math }
+        ),
+        s(
+            { trig='inf', name='cdot', dscr='dscr'},
+            {t([[\infty]])},
             { condition = math }
         ),
         s(
@@ -115,6 +185,15 @@ ls.add_snippets(nil, {
             { condition = math }
         ),
 
+        s(
+            { trig='$([%a])', regTrig = true, wordTrig = false, snippetType = "autosnippet"},
+            fmta(
+                "$ <> $",
+                {
+                    f( function (_, snip) return snip.captures[1] end),
+                }
+            )
+        ),
+
     }
 })
-

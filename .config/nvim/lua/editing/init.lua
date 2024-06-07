@@ -5,6 +5,7 @@ local indentline = require "editing.indentline"
 local cmp = require "editing.cmp"
 local pencil = require "editing.pencil"
 local vimtex = require "editing.vimtex"
+local md_preview = require "editing.md_preview"
 return {
     leap,
     autopairs,
@@ -12,5 +13,6 @@ return {
     indentline,
     cmp,
     pencil,
-    vimtex
+    vimtex,
+    md_preview
 }
