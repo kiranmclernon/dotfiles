@@ -1,14 +1,3 @@
-local function get_package_path(package)
-    local mason_path = vim.env.MASON .. "/packages/"
-    local path = mason_path .. package
-    local file = io.open(path, "r")
-    if file then
-        file:close()
-        return path
-    else
-        error("cant find it")
-    end
-end
 
 return {
     "mfussenegger/nvim-dap",
@@ -20,8 +9,7 @@ return {
         "mfussenegger/nvim-dap-python",
     },
     config = function()
-        local debugpy_path = get_package_path("debugpy")
-        local debugpy_venv = debugpy_path .. "/venv/bin/python"
+        local debugpy_venv = "/usr/local/Caskroom/miniconda/base/envs/debug/bin/python"
         require("dap-python").setup(debugpy_venv)
         local dap, dapui = require("dap"), require("dapui")
         -- dap.listeners.before.attach.dapui_config = function()
