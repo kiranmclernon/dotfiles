@@ -1,4 +1,4 @@
 return {
     "nvim-lua/plenary.nvim",
-    priority = 750
+    priority = 750,
 }

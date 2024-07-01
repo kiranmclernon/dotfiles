@@ -1,4 +1,4 @@
-return { 
+return {
     "ggandor/leap.nvim",
     config = function()
         local status_ok, leap = pcall(require, "leap")
@@ -7,5 +7,5 @@ return {
         end
 
         leap.add_default_mappings()
-    end
+    end,
 }

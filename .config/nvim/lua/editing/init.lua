@@ -1,18 +1,18 @@
-local leap = require "editing.leap"
-local autopairs = require "editing.autopairs"
-local comment = require "editing.comment"
-local indentline = require "editing.indentline"
-local cmp = require "editing.cmp"
-local pencil = require "editing.pencil"
-local vimtex = require "editing.vimtex"
-local md_preview = require "editing.md_preview"
+local leap = require("editing.leap")
+local autopairs = require("editing.autopairs")
+local comment = require("editing.comment")
+local cmp = require("editing.cmp")
+local pencil = require("editing.pencil")
+local vimtex = require("editing.vimtex")
+local md_preview = require("editing.md_preview")
+local formatting = require("editing.formatting")
 return {
     leap,
     autopairs,
     comment,
-    indentline,
     cmp,
     pencil,
     vimtex,
-    md_preview
+    md_preview,
+    formatting,
 }

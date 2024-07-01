@@ -1,7 +1,7 @@
 local options = {
-    mouse = "a",  -- Allow mouse use
+    mouse = "a", -- Allow mouse use
     background = "dark", -- work regardless of terminal colours
-    timeoutlen = 500,-- time for mapped sequence to complete
+    timeoutlen = 500, -- time for mapped sequence to complete
     updatetime = 200, -- Faster completion (not actually sure about this)
     number = true, -- line numbers
     relativenumber = false, -- no relativenumber
@@ -21,16 +21,16 @@ local options = {
     ignorecase = true, -- ignore case in search patterns
     smartcase = true, -- take case into account if search has an uppercase
     backup = false, -- nobackup file
-    writebackup = false , -- stop file being edited if being edited by another program
+    writebackup = false, -- stop file being edited if being edited by another program
     undofile = true, -- there is an undo file saved for when i come back
     swapfile = false, -- idrk why
     splitright = true, -- forcing proper splits
     splitbelow = true, -- forcing propersplits
     scrolloff = 8, -- minimum number of lines to keep above and below the cursor
-    encoding = 'utf-8',
+    encoding = "utf-8",
 }
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
-vim.cmd "set whichwrap+=<,>,[,],h,l" -- easier navigation
-vim.cmd [[set iskeyword+=-]] -- Fix word recognition
+vim.cmd("set whichwrap+=<,>,[,],h,l") -- easier navigation
+vim.cmd([[set iskeyword+=-]]) -- Fix word recognition

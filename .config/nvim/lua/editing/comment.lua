@@ -6,5 +6,5 @@ return {
             return
         end
         comment.setup()
-    end
+    end,
 }

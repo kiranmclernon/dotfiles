@@ -1,4 +1,4 @@
-local plenary = require "utils.plenary"
+local plenary = require("utils.plenary")
 return {
-    plenary
+    plenary,
 }

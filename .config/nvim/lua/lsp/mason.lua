@@ -8,17 +8,16 @@ local servers = {
     "clangd",
     "ltex",
     "bashls",
-    "arduino_language_server",
-    "tsserver"
+    "tsserver",
 }
 
 local mason_settings = {
     ui = {
-    border = "none",
+        border = "none",
         icons = {
             package_installed = "✓",
             package_pending = "➜",
-            package_uninstalled = "✗"
+            package_uninstalled = "✗",
         },
     },
     log_level = vim.log.levels.INFO,
@@ -34,38 +33,33 @@ return {
     dependencies = {
         "neovim/nvim-lspconfig",
         "williamboman/mason-lspconfig.nvim",
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
-        require("lsp.lang_plugs")
+        "jay-babu/mason-nvim-dap.nvim",
+        require("lsp.lang_plugs"),
     },
+    lazy = false,
+    priority = 100,
     config = function()
         require("mason").setup(mason_settings)
         require("mason-lspconfig").setup({
             ensure_installed = servers,
             automatic_installation = true,
         })
-        require("mason-tool-installer").setup({
-            ensure_installed = {
-                "pylint",
-                "google-java-format",
-                "stylua"
-            }
+        require("lsp.setup").setup()
+        require("mason-nvim-dap").setup({
+            ensure_installed = { "python" }
         })
-    require("lsp.setup").setup()
-    local lsp_config = require "lspconfig"
-    local handlers = {
-        function(server_name)
-            lsp_config[server_name].setup(
-                    require("lsp.server_settings.default")
-                )
-        end,
-        ["lua_ls"] = function()
-            lsp_config.lua_ls.setup(get_server_settings("lua_ls"))
-        end,
-        ["jdtls"] = function()
+        local lsp_config = require("lspconfig")
+        local handlers = {
+            function(server_name)
+                lsp_config[server_name].setup(require("lsp.server_settings.default"))
+            end,
+            ["lua_ls"] = function()
+                lsp_config.lua_ls.setup(get_server_settings("lua_ls"))
+            end,
+            ["jdtls"] = function()
                 get_server_settings("nvim-jdtls")()
-        end,
-    }
-
-    require('mason-lspconfig').setup_handlers(handlers)
-    end
+            end,
+        }
+        require("mason-lspconfig").setup_handlers(handlers)
+    end,
 }

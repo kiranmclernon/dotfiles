@@ -1,8 +1,5 @@
-local mason = require "lsp.mason"
--- local linting = require "lsp.linting"
-local formatting = require "lsp.formatting"
+local mason = require("lsp.mason")
 
 return {
     mason,
-    formatting
 }

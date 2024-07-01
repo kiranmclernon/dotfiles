@@ -8,11 +8,11 @@ M.servers = {
     "jdtls",
     "clangd",
     "ltex",
-    "bashls"
+    "bashls",
 }
 
 local exclude = {
-    ["jdtls"] = true
+    ["jdtls"] = true,
 }
 
 M.setup = {}
@@ -22,6 +22,5 @@ for _, server in ipairs(M.servers) do
         table.insert(M.setup, server)
     end
 end
-
 
 return M
