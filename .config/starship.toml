@@ -1,0 +1,43 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+
+format = """
+$username\
+$directory\
+$git_branch\
+[\uE0B0 ](fg:#81A1C1 bg:#2E3440)\
+$line_break\
+$character
+"""
+
+
+right_format = "$conda"
+
+[character]
+success_symbol = "[   \uE007  ](bg:#4C566A)[\uE0BC](fg:#4C566A)"
+error_symbol = "[   \uE007  ](bg:#4C566A fg:#BF616A)[\uE0BC](fg:#4C566A)"
+
+# system
+
+[username]
+show_always = true
+style_user = "bg:#4C566A"
+style_root = "bg:#4C566A"
+format = "[ $user ]($style)[\uE0BC](bg:#BF616A fg:#4C566A)"
+
+[directory]
+style = "bg:#BF616A"
+format = "[ $path ]($style)[\uE0BE](bg:#BF616A fg:#D08770)"
+truncate_to_repo = false
+truncation_length = 3
+truncation_symbol = "…/"
+
+# git
+
+[git_branch]
+symbol = "\uE0A0"
+style = "bg:#D08770"
+format = "[[ $symbol $branch ](bg:#D08770)]($style)"
+
+[conda]
+format = '[$symbol$environment](dimmed green)'
