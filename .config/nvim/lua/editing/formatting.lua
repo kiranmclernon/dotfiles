@@ -6,6 +6,7 @@ return {
             formatters_by_ft = {
                 lua = { "stylua" },
                 python = { "ruff" },
+                java = { "google-java-format" }
             },
         })
     end,

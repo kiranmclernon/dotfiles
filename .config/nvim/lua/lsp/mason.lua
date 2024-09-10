@@ -33,6 +33,7 @@ return {
     dependencies = {
         "neovim/nvim-lspconfig",
         "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         require("lsp.lang_plugs"),
     },
@@ -46,8 +47,15 @@ return {
         })
         require("lsp.setup").setup()
         require("mason-nvim-dap").setup({
-            ensure_installed = { "python" }
+            ensure_installed = { "python" },
         })
+
+        require("mason-tool-installer").setup({
+            ensure_installed = {
+                "google-java-format"
+            }
+        })
+
         local lsp_config = require("lspconfig")
         local handlers = {
             function(server_name)

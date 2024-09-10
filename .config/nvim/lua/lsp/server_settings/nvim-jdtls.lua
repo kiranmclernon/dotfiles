@@ -224,38 +224,7 @@ local function jdtls_setup(event)
 
     local lsp_settings = {
         java = {
-            -- jdt = {
-            --   ls = {
-            --     vmargs = "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m"
-            --   }
-            -- },
-            eclipse = {
-                downloadSources = true,
-            },
-            configuration = {
-                updateBuildConfiguration = "interactive",
-                runtimes = path.runtimes,
-            },
-            maven = {
-                downloadSources = true,
-            },
-            implementationsCodeLens = {
-                enabled = true,
-            },
-            referencesCodeLens = {
-                enabled = true,
-            },
-            -- inlayHints = {
-            --   parameterNames = {
-            --     enabled = 'all' -- literals, all, none
-            --   }
-            -- },
-            format = {
-                enabled = true,
-                -- settings = {
-                --   profile = 'asdf'
-                -- },
-            },
+            import = { gradle = { enabled = false } },
         },
         signatureHelp = {
             enabled = true,
@@ -293,7 +262,7 @@ local function jdtls_setup(event)
     -- or attaches to an existing client & server depending on the `root_dir`.
     jdtls.start_or_attach({
         cmd = cmd,
-        settings = lsp_settings,
+        settings = { java = {import = {gradle = {enabled = false}}}},
         on_attach = jdtls_on_attach,
         capabilities = cache_vars.capabilities,
         root_dir = jdtls.setup.find_root(root_files),
@@ -305,11 +274,20 @@ local function jdtls_setup(event)
         },
     })
 end
+
+local java_ft = function (event)
+    vim.opt.tabstop = 2
+    vim.opt.shiftwidth = 2
+    vim.opt.expandtab = true
+    vim.opt.softtabstop = 2
+    jdtls_setup(event)
+end
+
 return function()
     vim.api.nvim_create_autocmd("FileType", {
         group = java_cmds,
         pattern = { "java" },
         desc = "Setup jdtls",
-        callback = jdtls_setup,
+        callback = java_ft,
     })
 end
