@@ -16,6 +16,8 @@ return {
                 "make",
                 "javascript",
                 "html",
+                "json",
+                "swift",
                 "typescript",
             },
             sync_install = false,

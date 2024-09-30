@@ -1,0 +1,22 @@
+{
+  "description": "command l to lock screen",
+  "manipulators": [
+    {
+      "type": "basic",
+      "from": {
+        "simultaneous": [
+          {
+            "key_code": "left_command"
+          },
+          {
+            "key_code": "l"
+          }
+        ]
+      },
+      "to": [
+        {
+          "shell_command": "~/.config/.commands/lock.command"
+        }
+      ]
+    }
+}

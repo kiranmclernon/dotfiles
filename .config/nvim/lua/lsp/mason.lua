@@ -69,5 +69,7 @@ return {
             end,
         }
         require("mason-lspconfig").setup_handlers(handlers)
+
+        lsp_config.sourcekit.setup(require("lsp.server_settings.swift"))
     end,
 }
