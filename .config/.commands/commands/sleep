@@ -1,7 +1,0 @@
-#!/bin/bash
-
-osascript <<EOF
-tell application "System Events"
-    sleep
-end tell
-EOF
