@@ -74,3 +74,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+
+export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources

@@ -3,7 +3,7 @@ hs.application.enableSpotlightForNameSearches(true)
 
 DOUBLE_PRESS_TIMEOUT = 0.3
 local lastShiftPressTime = hs.timer.secondsSinceEpoch()
-local function getApps()
+local function getApps(callback)
     local appDirs = {
         "/Applications",
         "/System/Applications",
@@ -11,24 +11,59 @@ local function getApps()
     }
     local apps = {}
 
-    for _, dir in ipairs(appDirs) do
-        local iterator, dirObj = hs.fs.dir(dir)
-        if iterator then
-            for file in iterator, dirObj do
-                if file:match("%.app$") then
-                    local fullPath = dir .. "/" .. file
-                    local appName = file:match("(.+)%.app$")
-                    table.insert(apps, {name = appName, path = fullPath})
+    local spotlight = hs.spotlight.new():queryString('kMDItemKind == "Application"')
+        :callbackMessages({"didUpdate", "didFinish"})
+        :searchScopes(appDirs)
+        :setCallback(function(obj, message, _, _)
+            if message == "didFinish" then
+                for i = 1, obj:count() do
+                    hs.printf("inserting")
+                    local item = obj:resultAtIndex(i)
+                    local filePath = item:valueForAttribute("kMDItemPath")
+                    local displayName = item:valueForAttribute("kMDItemDisplayName")
+                    hs.printf(filePath)
+                    table.insert(apps, {text=displayName, subText=filePath, image=hs.image.iconForFile(filePath)})
                 end
+                callback(apps)
             end
-        end
-    end
+        end)
+        :start()
+
+
 
     return apps
 end
 
+local function getPdfs()
+    local pdfIcon = hs.image.iconForFileType("pdf")
+    local spotlight = hs.spotlight.new():queryString('kMDItemContentType == "com.adobe.pdf"')
+        :callbackMessages({"didUpdate", "didFinish"})
+        :searchScopes({os.getenv("HOME").."/Desktop", os.getenv("HOME").."/Documents"})
+        :setCallback(function(obj, message, _, _)
+            hs.printf("Message: " .. message)
+            if message == "didFinish" then
+                local choices = {}
+                for i = 1, obj:count() do
+                    local item = obj:resultAtIndex(i)
+                    local filePath = item:valueForAttribute("kMDItemPath")
+                    local displayName = item:valueForAttribute("kMDItemDisplayName")
+                    table.insert(choices, {text=displayName, subText=filePath, image=pdfIcon})
+                end
+                local pdfChooser = hs.chooser.new(function (selectedItem)
+                    if selectedItem then
+                        hs.execute(string.format('open "%s"', selectedItem.subText))
+                    end
+                end)
+                pdfChooser:choices(choices)
+                pdfChooser:show()
+            end
+        end)
+        :start()
+end
 
-function getVisibleAppsNames()
+
+
+local function getVisibleAppsNames()
     local appleScript = [[
         tell application "System Events"
             set appList to name of every application process whose visible is true
@@ -51,6 +86,7 @@ function getVisibleAppsNames()
 end
 local commandMap = {}
 
+commandMap["PDF"] = getPdfs
 commandMap["spotify"] = function()
     local applescript = [[
         tell application "Safari"
@@ -78,7 +114,7 @@ commandMap["quit"] = function()
     local runningApps = getVisibleAppsNames()
     local choices = {}
     for _, application in pairs(runningApps) do
-        table.insert(choices, {text = application:name(),  subText = application:name()})
+        table.insert(choices, {text = application:name(),  subText = application:name(), image=hs.image.imageFromAppBundle(application:bundleID())})
     end
     local quitChooser = hs.chooser.new(function (selectedItem)
         if not selectedItem then
@@ -94,7 +130,7 @@ commandMap["force quit"] = function()
     local runningApps = getVisibleAppsNames()
     local choices = {}
     for _, application in pairs(runningApps) do
-        table.insert(choices, {text = application:name(),  subText = application:name()})
+        table.insert(choices, {text = application:name(),  subText = application:name(), image=hs.image.imageFromAppBundle(application:bundleID())})
     end
     local quitChooser = hs.chooser.new(function (selectedItem)
         if not selectedItem then
@@ -111,9 +147,8 @@ commandMap["sleep"] = hs.caffeinate.systemSleep
 commandMap["restart"] = hs.caffeinate.restartSystem
 
 
-local function showChooser()
-    local apps = getApps()
-    hs.printf("got apps")
+
+local function showChooser(apps)
     local choices = {}
 
     for command, _ in pairs(commandMap) do
@@ -121,7 +156,7 @@ local function showChooser()
     end
 
     for _, app in ipairs(apps) do
-        table.insert(choices, {text = app.name, subText = app.path})
+        table.insert(choices, {text = app.text, subText = app.subText, image=app.image})
     end
 
 
@@ -139,7 +174,7 @@ local function showChooser()
         if commandFunc then
             commandFunc()
         else
-            hs.execute("open " .. selectedItem.subText)
+        hs.execute(string.format('open "%s"', selectedItem.subText))
         end
     end)
 
@@ -151,7 +186,7 @@ local function handleShiftPress()
     local currentTime = hs.timer.secondsSinceEpoch()
     hs.printf("called handleShiftPress")
     if currentTime - lastShiftPressTime <= DOUBLE_PRESS_TIMEOUT then
-        showChooser()
+        getApps(showChooser)
     else
         lastShiftPressTime = currentTime
     end
@@ -159,7 +194,6 @@ local function handleShiftPress()
 end
 
 shiftTap = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, function(event)
-    hs.printf("called")
     local flags = event:getFlags()
     if flags.shift then
         handleShiftPress()
