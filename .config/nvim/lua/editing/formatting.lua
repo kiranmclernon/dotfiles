@@ -8,6 +8,11 @@ return {
                 python = { "ruff" },
                 java = { "google-java-format" }
             },
+            formatters = {
+                stylua = {
+                    prepend_args = { "--indent-type", "Spaces", "--indent-width", "4" }
+                }
+            }
         })
     end,
     format_on_save = {

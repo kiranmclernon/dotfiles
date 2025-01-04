@@ -52,7 +52,8 @@ return {
 
         require("mason-tool-installer").setup({
             ensure_installed = {
-                "google-java-format"
+                "google-java-format",
+                "stylua"
             }
         })
 
