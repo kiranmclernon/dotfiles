@@ -2,3 +2,4 @@
 .config/.DS_Store
 .hammerspoon/Spoons/EmmyLua.spoon/annotations
 .hammerspoon/.DS_Store
+.config/configstore

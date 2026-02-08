@@ -41,7 +41,7 @@ keymap(
 
 keymap(
     "n",
-    "<S-f>",
+    "<leader>F",
     "<cmd>lua require('conform').format()<cr>",
     opts
 )

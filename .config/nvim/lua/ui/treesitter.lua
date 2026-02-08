@@ -15,10 +15,12 @@ return {
                 "bash",
                 "make",
                 "javascript",
+                "tsx",
                 "html",
                 "json",
                 "swift",
                 "typescript",
+                "c_sharp"
             },
             sync_install = false,
             highlight = {

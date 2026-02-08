@@ -6,9 +6,8 @@ local pencil = require("editing.pencil")
 local vimtex = require("editing.vimtex")
 local md_preview = require("editing.md_preview")
 local formatting = require("editing.formatting")
-local neorg = require("editing.neorg")
 return {
-    leap,
+    -- leap,
     autopairs,
     comment,
     cmp,
@@ -16,5 +15,4 @@ return {
     vimtex,
     md_preview,
     formatting,
-    neorg
 }

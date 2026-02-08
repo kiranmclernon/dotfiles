@@ -1,2 +1,7 @@
 [http]
 	postBuffer = 524288000
+[core]
+	pager = bat --paging=always
+[user]
+	name = Kiran McLernon
+	email = kiran.mclernon@yunextraffic.com

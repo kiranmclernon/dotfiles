@@ -19,6 +19,8 @@ return {
                 "-file-line-error",
                 "-synctex=1",
                 "-interaction=nonstopmode",
+                "-recorder",
+                "-use-make"
             },
         }
         local vimtex_cmds = vim.api.nvim_create_augroup("vimtex_cmds", { clear = true })

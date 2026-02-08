@@ -1,5 +1,14 @@
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /Applications/FDS/FDS6/bin/FDS6VARS.sh
+source /Applications/FDS/FDS6/bin/SMV6VARS.sh
+
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+
+autoload -Uz compinit
+compinit
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(fzf --zsh)"
@@ -76,4 +85,11 @@ unset __conda_setup
 
 
 
+
+export STM32_PRG_PATH=/Applications/STMicroelectronics/STM32Cube/STM32CubeProgrammer/STM32CubeProgrammer.app/Contents/MacOs/bin
+
 export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
+. "/Users/kiranmclernon/.deno/env"
+
+# Created by `pipx` on 2026-02-06 05:49:10
+export PATH="$PATH:/Users/kiranmclernon/.local/bin"

@@ -1,14 +1,14 @@
 local servers = {
     "lua_ls",
     "rust_analyzer",
-    "basedpyright",
-    "cmake",
+    "pyright",
     "texlab",
     "jdtls",
     "clangd",
     "ltex",
     "bashls",
-    "tsserver",
+    "ts_ls",
+    "omnisharp",
 }
 
 local mason_settings = {
@@ -44,6 +44,7 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = servers,
             automatic_installation = true,
+            automatic_enable = false,
         })
         require("lsp.setup").setup()
         require("mason-nvim-dap").setup({
@@ -53,24 +54,25 @@ return {
         require("mason-tool-installer").setup({
             ensure_installed = {
                 "google-java-format",
-                "stylua"
-            }
+                "stylua",
+                "prettier",
+                "ruff",
+            },
         })
 
         local lsp_config = require("lspconfig")
-        local handlers = {
-            function(server_name)
-                lsp_config[server_name].setup(require("lsp.server_settings.default"))
-            end,
-            ["lua_ls"] = function()
-                lsp_config.lua_ls.setup(get_server_settings("lua_ls"))
-            end,
-            ["jdtls"] = function()
-                get_server_settings("nvim-jdtls")()
-            end,
-        }
-        require("mason-lspconfig").setup_handlers(handlers)
 
-        lsp_config.sourcekit.setup(require("lsp.server_settings.swift"))
+        for _, server in ipairs(servers) do
+            if server == "lua_ls" then
+                lsp_config.lua_ls.setup(get_server_settings("lua_ls"))
+            elseif server == "jdtls" then
+                get_server_settings("nvim-jdtls")()
+            elseif server == "ts_ls" then
+                get_server_settings("tsserver")()
+                lsp_config.ts_ls.setup(require("lsp.server_settings.default"))
+            else
+                lsp_config[server].setup(require("lsp.server_settings.default"))
+            end
+        end
     end,
 }

@@ -84,29 +84,6 @@ end
 local commandMap = {}
 
 commandMap["PDF"] = getPdfs
-commandMap["spotify"] = function()
-    local applescript = [[
-        tell application "Safari"
-            set spotifyTabOpen to false
-            set windowList to windows
-            repeat with currentWindow in windowList
-                set tabList to tabs of currentWindow
-                repeat with currentTab in tabList
-                    if (URL of currentTab contains "open.spotify.com") then
-                        set spotifyTabOpen to true
-                        tell currentWindow to set current tab to currentTab
-                        activate
-                        exit repeat
-                    end if
-                end repeat
-                if spotifyTabOpen is true then
-                    exit repeat
-                end if
-            end repeat
-        end tell
-    ]]
-    hs.osascript.applescript(applescript)
-end
 commandMap["quit"] = function()
     local runningApps = getVisibleAppsNames()
     local choices = {}
@@ -250,5 +227,13 @@ hs.hotkey.bind({ "cmd", "shift" }, "F", function()
     local win = hs.window.focusedWindow()
     if win then
         win:maximize()
+    end
+end)
+
+
+hs.hotkey.bind({ "cmd", "shift" }, "m", function()
+    local win = hs.window.focusedWindow()
+    if win then
+        win:minimize()
     end
 end)
