@@ -93,3 +93,37 @@ export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Content
 
 # Created by `pipx` on 2026-02-06 05:49:10
 export PATH="$PATH:/Users/kiranmclernon/.local/bin"
+. "$HOME/.cargo/env"
+
+# bun completions
+[ -s "/Users/kiranmclernon/.bun/_bun" ] && source "/Users/kiranmclernon/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export DICPATH="$HOME/Library/Spelling"
+export DICTIONARY="en_AU"
