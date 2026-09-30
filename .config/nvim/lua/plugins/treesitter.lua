@@ -12,6 +12,7 @@ return {
 			"css",
 			"json",
 			"yaml",
+            "typst"
 		})
 	end,
 }
