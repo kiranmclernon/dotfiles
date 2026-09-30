@@ -1,11 +1,18 @@
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("basedpyright")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("tinymist")
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
 		if client:supports_method("textDocument/completion") then
-			vim.opt.completeopt = { "menu", "menuone", "noinsert", "fuzzy", "popup", "noselect" }
+			vim.opt.completeopt = { "menu", "menuone", "fuzzy", "popup", "noselect" }
+			local chars = {}
+			for i = 32, 126 do
+				table.insert(chars, string.char(i))
+			end
+			client.server_capabilities.completionProvider.triggerCharacters = chars
 			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
 			vim.keymap.set("i", "<C-Space>", function()
 				vim.lsp.completion.get()
@@ -35,13 +42,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				end
 			end, { buffer = ev.buf, expr = true })
 		end
+
+        vim.keymap.set("n", "gl", function()
+	vim.diagnostic.open_float(nil, {
+		scope = "cursor",
+		border = "rounded",
+	})
+end, { buffer = ev.buf })
 	end,
 })
 
 vim.diagnostic.config({
 	virtual_lines = {
-		current_line = true,
-	},
+        current_line=true,
+        overflow="trunc",
+		format = function(diagnostic)
+			return diagnostic.message:gsub("\n", " ")
+		end,
+    },
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = "",
